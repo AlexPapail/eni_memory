@@ -48,12 +48,38 @@ h3 {
 #intro {
   margin-top: 5%;
 }
-.isOk{
+
+.isOk {
   color: green;
 }
-.isNotOk{
+
+.isNotOk {
   color: red;
 }
+
 p {
   font-weight: bold;
+}
+
+#fort {
+  border-block-end-style: inset;
+  border-block-end-width: 12px;
+  border-block-color: rgb(76, 180, 76);
+  width: 8vw;
+}
+#moyen {
+  border-block-end-style: inset;
+  border-block-end-width: 12px;
+  border-block-color: rgb(233, 233, 33);
+  width: 8vw;
+}
+#faible {
+  border-block-end-style: inset;
+  border-block-end-width: 12px;
+  border-block-color: rgb(238, 54, 54);
+  width: 8vw;
+}
+#forceMdp{
+  display: flex;
+  justify-content: space-around;
 }
