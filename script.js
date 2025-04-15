@@ -34,71 +34,63 @@ function validEmail() {
     }
   });
 }
-// function createStrong(strong,maj,min,num,sym,size) {
-//     if(!strong&&maj && min && num && sym && size){
-//         let fort;
-//         fort = document.createElement("div");
-//         fort.id = "fort";
-//         fort.innerText = "Fort";
-//         document.getElementById("forceMdp").appendChild(fort);
-//         strong = true;
-//     }else if(strong&& !maj || !min || !num || !sym || !size){
-//         document.getElementById("forceMdp").removeChild(fort);
-//         strong = false
-//     }
-// }
-// function createMiddle(middle,maj,min,num,sym) {
-//     if(!middle&&maj && min && num && sym){
-//         let moyen;
-//         moyen = document.createElement("div");
-//         moyen.id = "moyen";
-//         moyen.innerText = "Moyen";
-//         document.getElementById("forceMdp").appendChild(moyen);
-//         middle = true;
-//     }else if(middle&& size &&(!maj || !min || !num || !sym)){
-//         document.getElementById("forceMdp").removeChild(moyen);
-//         middle = false
-//     }
-// }
-function createWeak(pwd) {
-    
-        let moyen;
-        moyen = document.createElement("div");
-        moyen.id = "moyen";
-        moyen.innerText = "Moyen";
-        document.getElementById("forceMdp").appendChild(moyen);
-        
-        
-    
+function createStrong(strong, maj, min, num, sym, size) {
+  let fort;
+  fort = document.createElement("div");
+  fort.id = "fort";
+  fort.innerText = "Fort";
+  document.getElementById("forceMdp").appendChild(fort);
+}
+function createMiddle() {
+  let moyen;
+  moyen = document.createElement("div");
+  moyen.id = "moyen";
+  moyen.innerText = "Moyen";
+  document.getElementById("forceMdp").appendChild(moyen);
 }
 
+function createWeak(pwd) {
+  let faible;
+  faible = document.createElement("div");
+  faible.id = "faible";
+  faible.innerText = "Faible";
+  document.getElementById("forceMdp").appendChild(faible);
+}
 function validPassword() {
-   
   document.getElementById("mdp").addEventListener("input", function () {
     let pwd = document.querySelector("#mdp").value;
-    
-
+    confirmPwd(pwd)
     let maj = checkMaj(pwd);
     let min = checkMin(pwd);
     let num = checkNumber(pwd);
     let sym = checkSymbole(pwd);
     let size = checkSize(pwd);
-    if(maj&&min&&!document.getElementById("moyen")){
-        createWeak(pwd)
-    }else if (!maj || !min){
-        if(document.getElementById("moyen")){
-            document.getElementById("forceMdp").removeChild(moyen);
-        }
+    if (maj && min && !document.getElementById("faible")) {
+      createWeak(pwd);
+    } else if (!maj || !min) {
+      if (document.getElementById("faible")) {
+        document.getElementById("forceMdp").removeChild(faible);
+      }
     }
-    
-    
-    
-    
+    if (maj && min && (num || sym )&& !document.getElementById("moyen")) {
+      createMiddle(pwd);
+    } else if (!maj || !min || (!sym && !num)) {
+      if (document.getElementById("moyen")) {
+        document.getElementById("forceMdp").removeChild(moyen);
+      }
+    }
+    if (maj && min && num && sym && size && !document.getElementById("fort")) {
+      createStrong(pwd);
+    } else if (!maj || !min || !sym || !num || !size) {
+      if (document.getElementById("fort")) {
+        document.getElementById("forceMdp").removeChild(fort);
+      }
+    }
+
     if (maj && min && num && sym && size) {
       document
         .getElementById("mdp")
         .setAttribute("class", "form-control is-valid");
-      
     } else if (!pwd) {
       document.getElementById("mdp").setAttribute("class", "form-control");
     } else {
@@ -159,4 +151,21 @@ function checkSize(pwd) {
     document.querySelector("#longMini").setAttribute("class", "isNotOk");
   }
   return checkSize;
+}
+function confirmPwd(pwd) {
+  document
+    .querySelector("#confirmationmdp")
+    .addEventListener("input", function () {
+      let val = this.value;      
+
+      if (val===pwd) {
+        this.setAttribute("class", "form-control is-valid");
+      } else if (!val) {
+        this.setAttribute("class", "form-control");
+      } else {
+        this.setAttribute("class", "form-control is-invalid");
+      }
+    });
+
+  
 }

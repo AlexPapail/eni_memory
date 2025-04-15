@@ -64,22 +64,22 @@ p {
 #fort {
   border-block-end-style: inset;
   border-block-end-width: 12px;
-  border-block-color: rgb(76, 180, 76);
-  width: 8vw;
+  border-block-color: rgb(43, 105, 43);
+  width:70px;
 }
 #moyen {
   border-block-end-style: inset;
   border-block-end-width: 12px;
-  border-block-color: rgb(233, 233, 33);
-  width: 8vw;
+  border-block-color: rgb(194, 101, 24);
+  width: 70px;
 }
 #faible {
   border-block-end-style: inset;
   border-block-end-width: 12px;
-  border-block-color: rgb(238, 54, 54);
-  width: 8vw;
+  border-block-color: rgb(211, 69, 69);
+  width: 70px;
 }
 #forceMdp{
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
