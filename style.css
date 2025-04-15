@@ -1,0 +1,59 @@
+a {
+  text-decoration: none;
+}
+
+.blockContenu {
+  margin-top: 10%;
+
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+body {
+  background-color: slategray;
+}
+
+.navbar-brand {
+  font-family: "Barrio", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+
+h2 {
+  font-family: "Barrio", system-ui;
+  font-weight: 600;
+  font-style: normal;
+  margin-top: 10%;
+  margin-bottom: 5%;
+
+}
+
+img {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  width: -moz-available;
+}
+
+h3 {
+  font-family: "Barrio", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#intro {
+  margin-top: 5%;
+}
+.isOk{
+  color: green;
+}
+.isNotOk{
+  color: red;
+}
+p {
+  font-weight: bold;
+}
