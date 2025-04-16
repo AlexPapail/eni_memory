@@ -88,6 +88,7 @@
           placeholder="Saisissez un mot de passe de minimum 6 caractères"
           title="Saisissez un mot de passe de minimum 6 caractères 
         comportant des lettres minuscules et majuscules et au moins un chiffre et un caractère spécial"
+        aria-required="true"
         />
         <p id="conditions">Au moins <span class="isNotOk" id="chiffre">un chiffre, </span><span class="isNotOk" id="symbole">un symbole, </span><span class="isNotOk" id="majuscule">une majuscule, </span><span class="isNotOk" id="minuscule">une minuscule </span></span><span class="isNotOk" id="longMini">et 6 caractères minimum</span></p>
 <div id="forceMdp"></div>
@@ -107,7 +108,7 @@
         />
         <br />
         <div id="boutondeconfirmation">
-          <button id="confirmation" class="btn btn-outline-success">Confimer</button>
+          <a href="compte.html" id="confirmation" class="btn btn-outline-success disabled" role="button" type="submit">Confimer</a>
           <button id="annulation" class="btn btn-outline-danger">Annuler</button>
         </div>
       </form>

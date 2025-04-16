@@ -1,22 +1,52 @@
+validPassword();
 validName();
 validEmail();
-validPassword();
+cancel();
+let nameIsOk = false;
+let emailIsOk = false;
+function valid(nameIsOk) {
+  
+  if (nameIsOk) {
+    console.log('zc');
+    
+    document
+      .getElementById("confirmation")
+      .setAttribute("class", "btn btn-outline-success");
+    document
+      .getElementById("confirmation")
+      .addEventListener("click", function () {
+        localStorage.setItem(
+          "nom",
+          document.getElementById("nomUtilisateur").value
+        );
+        localStorage.setItem("email", document.getElementById("email").value);
+      });
+  } else {
+    document
+      .getElementById("confirmation")
+      .setAttribute("class", "btn btn-outline-success disabled");
+  }
+}
 
 function validName() {
   document
     .querySelector("#nomUtilisateur")
     .addEventListener("input", function () {
       let val = this.value;
+      var checkName = /[A-Za-z]/.test(val) && val.length >= 3;
 
-      let checkLowerCase = /[A-Za-z]/.test(val);
-
-      if (checkLowerCase && val.length >= 3) {
+      if (checkName) {
         this.setAttribute("class", "form-control is-valid");
+        nameIsOk = true;                
       } else if (!val) {
         this.setAttribute("class", "form-control");
+        nameIsOk = false;
       } else {
         this.setAttribute("class", "form-control is-invalid");
+        nameIsOk = false;
       }
+      
+      valid(nameIsOk)
     });
 }
 function validEmail() {
@@ -34,7 +64,7 @@ function validEmail() {
     }
   });
 }
-function createStrong(strong, maj, min, num, sym, size) {
+function createStrong() {
   let fort;
   fort = document.createElement("div");
   fort.id = "fort";
@@ -48,8 +78,7 @@ function createMiddle() {
   moyen.innerText = "Moyen";
   document.getElementById("forceMdp").appendChild(moyen);
 }
-
-function createWeak(pwd) {
+function createWeak() {
   let faible;
   faible = document.createElement("div");
   faible.id = "faible";
@@ -59,7 +88,7 @@ function createWeak(pwd) {
 function validPassword() {
   document.getElementById("mdp").addEventListener("input", function () {
     let pwd = document.querySelector("#mdp").value;
-    confirmPwd(pwd)
+    confirmPwd(pwd);
     let maj = checkMaj(pwd);
     let min = checkMin(pwd);
     let num = checkNumber(pwd);
@@ -72,7 +101,7 @@ function validPassword() {
         document.getElementById("forceMdp").removeChild(faible);
       }
     }
-    if (maj && min && (num || sym )&& !document.getElementById("moyen")) {
+    if (maj && min && (num || sym) && !document.getElementById("moyen")) {
       createMiddle(pwd);
     } else if (!maj || !min || (!sym && !num)) {
       if (document.getElementById("moyen")) {
@@ -156,9 +185,9 @@ function confirmPwd(pwd) {
   document
     .querySelector("#confirmationmdp")
     .addEventListener("input", function () {
-      let val = this.value;      
+      let val = this.value;
 
-      if (val===pwd) {
+      if (val === pwd) {
         this.setAttribute("class", "form-control is-valid");
       } else if (!val) {
         this.setAttribute("class", "form-control");
@@ -166,6 +195,34 @@ function confirmPwd(pwd) {
         this.setAttribute("class", "form-control is-invalid");
       }
     });
-
-  
 }
+function cancel() {
+  document.getElementById("annulation").addEventListener("click", function () {
+    document.getElementById("nomUtilisateur").value = "";
+    document
+      .getElementById("nomUtilisateur")
+      .setAttribute("class", "form-control");
+    document.getElementById("email").value = "";
+    document.getElementById("email").setAttribute("class", "form-control");
+    document.getElementById("mdp").value = "";
+
+    document.getElementById("mdp").setAttribute("class", "form-control");
+    document.getElementById("confirmationmdp").value = "";
+    document
+      .getElementById("confirmationmdp")
+      .setAttribute("class", "form-control");
+
+    document.getElementById("minuscule").setAttribute("class", "isNotOk");
+    document.getElementById("majuscule").setAttribute("class", "isNotOk");
+    document.getElementById("symbole").setAttribute("class", "isNotOk");
+    document.getElementById("longMini").setAttribute("class", "isNotOk");
+    document.getElementById("chiffre").setAttribute("class", "isNotOk");
+
+    var element = document.getElementById("forceMdp");
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+  });
+}
+
+function valid() {}
