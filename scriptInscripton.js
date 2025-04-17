@@ -2,47 +2,64 @@ validPassword();
 validName();
 validEmail();
 cancel();
+
 let nameIsOk = false;
 let emailIsOk = false;
 let pwdIsOk = false;
 let confirmPwdIsOk = false;
-const nameInStorage = localStorage.getItem(nameTab)?.toString()
-let nameTab = []
-function checkNameInStorage() {
-  for (let index = 0; index < nameTab.length; index++) {
-    if( nameTab(index)===document.getElementById("nomUtilisateur").value){
-      return true
-      
-    }else{
-      return false
-    }
-    
+let nameTab = [];
+let emailTab = []
+let mdpTab = []
+//const nameInStorage = localStorage.getItem(nameTab)?.toString()
+// let valTab;
+
+// function checkNameInStorage() {
+//   for (let index = 0; index < nameTab.length; index++) {
+//     if( nameTab(index)===document.getElementById("nomUtilisateur").value){
+//       return true
+
+//     }else{
+//       return false
+//     }
+
+//   }
+
+function checkStorage() {
+  if (localStorage.getItem("nom")) {
+    nameTab = JSON.parse(localStorage.getItem("nom"));
   }
+  // if (localStorage.getItem("email")) {
+  //   emailTab = JSON.parse(localStorage.getItem("email"));
+  // }
+  // if (localStorage.getItem("mdp")) {
+  //   mdpTab = JSON.parse(localStorage.getItem("mdp"));
+  // }
 }
-
-
-function nameStorage() {
+function update() {
   
   document
-  .getElementById("confirmation")
-  .addEventListener("click", function () {
-    
-    localStorage.setItem(
-      "nom",
-      document.getElementById("nomUtilisateur").value
-    );
-    
-  });
-  
+    .getElementById("confirmation")
+    .addEventListener("click", function () {
+      checkStorage()
+      nameTab.push(document.getElementById("nomUtilisateur").value);
+      localStorage.setItem("nom", JSON.stringify(nameTab));
+
+    //   emailTab.push(document.getElementById("email").value);
+    //   localStorage.setItem("email", JSON.stringify(emailTab));
+      
+    //   mdpTab.push(document.getElementById("mdp").value);
+    //   localStorage.setItem("mdp", JSON.stringify(mdpTab));
+    });
 }
+
 function valid() {
   if (nameIsOk && emailIsOk && pwdIsOk && confirmPwdIsOk) {
-       document
+    update()
+    document
+
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success");
-    nameTab.push(document.getElementById("nomUtilisateur").value)
   } else {
-    
     document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success disabled");
@@ -70,7 +87,7 @@ function validEmail() {
     let val = this.value;
 
     let arrobase = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val);
-    console.log(val);
+
     if (arrobase) {
       this.setAttribute("class", "form-control is-valid");
       emailIsOk = true;
