@@ -4,49 +4,65 @@ validEmail();
 cancel();
 let nameIsOk = false;
 let emailIsOk = false;
-function valid(nameIsOk) {
-  
-  if (nameIsOk) {
-    console.log('zc');
+let pwdIsOk = false;
+let confirmPwdIsOk = false;
+const nameInStorage = localStorage.getItem(nameTab)?.toString()
+let nameTab = []
+function checkNameInStorage() {
+  for (let index = 0; index < nameTab.length; index++) {
+    if( nameTab(index)===document.getElementById("nomUtilisateur").value){
+      return true
+      
+    }else{
+      return false
+    }
     
-    document
+  }
+}
+
+
+function nameStorage() {
+  
+  document
+  .getElementById("confirmation")
+  .addEventListener("click", function () {
+    
+    localStorage.setItem(
+      "nom",
+      document.getElementById("nomUtilisateur").value
+    );
+    
+  });
+  
+}
+function valid() {
+  if (nameIsOk && emailIsOk && pwdIsOk && confirmPwdIsOk) {
+       document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success");
-    document
-      .getElementById("confirmation")
-      .addEventListener("click", function () {
-        localStorage.setItem(
-          "nom",
-          document.getElementById("nomUtilisateur").value
-        );
-        localStorage.setItem("email", document.getElementById("email").value);
-      });
+    nameTab.push(document.getElementById("nomUtilisateur").value)
   } else {
+    
     document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success disabled");
   }
 }
-
 function validName() {
   document
     .querySelector("#nomUtilisateur")
     .addEventListener("input", function () {
-      let val = this.value;
-      var checkName = /[A-Za-z]/.test(val) && val.length >= 3;
-
-      if (checkName) {
+      if (/[A-Za-z]/.test(this.value) && this.value.length >= 3) {
         this.setAttribute("class", "form-control is-valid");
-        nameIsOk = true;                
-      } else if (!val) {
+        nameIsOk = true;
+      } else if (!this.value) {
         this.setAttribute("class", "form-control");
         nameIsOk = false;
       } else {
         this.setAttribute("class", "form-control is-invalid");
         nameIsOk = false;
       }
-      
-      valid(nameIsOk)
+      valid();
     });
 }
 function validEmail() {
@@ -57,11 +73,15 @@ function validEmail() {
     console.log(val);
     if (arrobase) {
       this.setAttribute("class", "form-control is-valid");
+      emailIsOk = true;
     } else if (!val) {
       this.setAttribute("class", "form-control");
+      emailIsOk = false;
     } else {
       this.setAttribute("class", "form-control is-invalid");
+      emailIsOk = false;
     }
+    valid();
   });
 }
 function createStrong() {
@@ -120,13 +140,17 @@ function validPassword() {
       document
         .getElementById("mdp")
         .setAttribute("class", "form-control is-valid");
+      pwdIsOk = true;
     } else if (!pwd) {
       document.getElementById("mdp").setAttribute("class", "form-control");
+      pwdIsOk = false;
     } else {
       document
         .getElementById("mdp")
         .setAttribute("class", "form-control is-invalid");
+      pwdIsOk = false;
     }
+    valid();
   });
 }
 function checkMaj(pwd) {
@@ -189,11 +213,15 @@ function confirmPwd(pwd) {
 
       if (val === pwd) {
         this.setAttribute("class", "form-control is-valid");
+        confirmPwdIsOk = true;
       } else if (!val) {
         this.setAttribute("class", "form-control");
+        confirmPwdIsOk = false;
       } else {
         this.setAttribute("class", "form-control is-invalid");
+        confirmPwdIsOk = false;
       }
+      valid();
     });
 }
 function cancel() {
@@ -222,7 +250,9 @@ function cancel() {
     while (element.firstChild) {
       element.removeChild(element.firstChild);
     }
+
+    document
+      .getElementById("confirmation")
+      .setAttribute("class", "btn btn-outline-success disabled");
   });
 }
-
-function valid() {}
