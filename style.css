@@ -83,3 +83,28 @@ p {
   display: flex;
   justify-content: center;
 }
+#photoProfil{
+  border-radius: 50%;
+  border-style: double;
+  width: 130px;
+  height: 130px;
+  margin-bottom: 50px;
+}
+.col-sm-2{
+  text-align: right;
+  margin-left: 1%;
+  margin-right: 2%;
+  
+  width: 100px;
+}
+.mb-3{
+  border-bottom: 2px;
+}
+hr{
+  width: 100vw;
+}
+
+.faceCache{
+  border-style: solid;
+  border-radius: 2%;
+}

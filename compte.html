@@ -40,8 +40,44 @@
       </div>
     </nav>
     
-    <div class="blockContenu container alert alert-warning col-lg-8">
-      
+    <div class="blockContenu container alert alert-warning col-lg-6">
+      <fieldset id="formulaireInscription"></fieldset>
+          <form action="#" method="post" id="form">
+            <br />
+            <h2 id="titreformulaire">Profil</h2>
+            
+            <img src="images/pot-with-rice.webp" alt="bol de riz" title="image d'un bol de riz" id="photoProfil" class="img-fluid col-lg-1" >
+            <br />
+            
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Pseudo :</label>
+            <div class="col-sm-5">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Alex">
+              
+            </div>
+            <hr>
+            
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email :</label>
+            <div class="col-sm-5">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+              
+            </div>
+            <hr>
+          </div>  
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Jeu :</label>
+            <div class="col-sm-5">
+              <select class="form-select form-select-sm" aria-label="Small select example">
+                <option selected>-</option>
+                <option value="1">Memory 1</option>
+                <option value="2">Memory 2</option>
+                <option value="3">Memory 3</option>
+              </select>
+              
+            </div>
+          </div>
     </div>
 
     <script

@@ -3,7 +3,7 @@ let emailIsOk = false;
 let pwdIsOk = false;
 let confirmPwdIsOk = false;
 let usersTab;
-checkStorage()
+checkStorage();
 
 
 validPassword();
@@ -12,57 +12,53 @@ validEmail();
 cancel();
 update();
 
-
-
 function checkIfUserexist() {
-  let exist = false;
+  let nameExist = false;
+  let emailExist = false;
   usersTab.forEach((element) => {
     if (element.name === document.getElementById("nomUtilisateur").value) {
-      alert("Ce compte éxiste déjà");
-      exist = true;
-      return exist
-      
+      nameExist = true;      
     } else {
-      exist = false;
-      return exist;
+      nameExist = false      
+    }
+    if (nameExist){
+      alert('Ce nom d\'utilisateur existe déjà')
+    }
+    if (element.email === document.getElementById("email").value) {
+      emailExist = true;      
+    } else {
+      emailExist = false      
+    }
+    if (emailExist){
+      alert('Cet email existe déjà')
     }
   });
-  
 }
 function checkStorage() {
   if (localStorage.getItem("users")) {
     usersTab = JSON.parse(localStorage.getItem("users"));
-    
-  }else{
-    usersTab = []
+  } else {
+    usersTab = [];
   }
 }
 function update() {
-  
   document
     .getElementById("confirmation")
     .addEventListener("click", function () {
-      
-      
       usersTab.push({
         name: document.getElementById("nomUtilisateur").value,
         email: document.getElementById("email").value,
         password: document.getElementById("mdp").value,
       });
-
       localStorage.setItem("users", JSON.stringify(usersTab));
     });
 }
-
 function valid() {
-  
   if (nameIsOk && emailIsOk && pwdIsOk && confirmPwdIsOk) {
-    checkIfUserexist()
     document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success");
   } else {
-    
     document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success disabled");
@@ -72,7 +68,6 @@ function validName() {
   document
     .querySelector("#nomUtilisateur")
     .addEventListener("input", function () {
-      
       if (/[A-Za-z]/.test(this.value) && this.value.length >= 3) {
         this.setAttribute("class", "form-control is-valid");
         nameIsOk = true;
@@ -83,6 +78,7 @@ function validName() {
         this.setAttribute("class", "form-control is-invalid");
         nameIsOk = false;
       }
+      checkIfUserexist();
       valid();
     });
 }
@@ -102,6 +98,7 @@ function validEmail() {
       this.setAttribute("class", "form-control is-invalid");
       emailIsOk = false;
     }
+    checkIfUserexist();
     valid();
   });
 }
@@ -171,6 +168,7 @@ function validPassword() {
         .setAttribute("class", "form-control is-invalid");
       pwdIsOk = false;
     }
+    checkIfUserexist();
     valid();
   });
 }
@@ -242,6 +240,7 @@ function confirmPwd(pwd) {
         this.setAttribute("class", "form-control is-invalid");
         confirmPwdIsOk = false;
       }
+      checkIfUserexist();
       valid();
     });
 }
