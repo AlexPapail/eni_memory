@@ -1,65 +1,68 @@
-validPassword();
-validName();
-validEmail();
-cancel();
-
 let nameIsOk = false;
 let emailIsOk = false;
 let pwdIsOk = false;
 let confirmPwdIsOk = false;
-let nameTab = [];
-let emailTab = []
-let mdpTab = []
-//const nameInStorage = localStorage.getItem(nameTab)?.toString()
-// let valTab;
+let usersTab;
+checkStorage()
 
-// function checkNameInStorage() {
-//   for (let index = 0; index < nameTab.length; index++) {
-//     if( nameTab(index)===document.getElementById("nomUtilisateur").value){
-//       return true
 
-//     }else{
-//       return false
-//     }
+validPassword();
+validName();
+validEmail();
+cancel();
+update();
 
-//   }
 
+
+function checkIfUserexist() {
+  let exist = false;
+  usersTab.forEach((element) => {
+    if (element.name === document.getElementById("nomUtilisateur").value) {
+      alert("Ce compte éxiste déjà");
+      exist = true;
+      return exist
+      
+    } else {
+      exist = false;
+      return exist;
+    }
+  });
+  
+}
 function checkStorage() {
-  if (localStorage.getItem("nom")) {
-    nameTab = JSON.parse(localStorage.getItem("nom"));
+  if (localStorage.getItem("users")) {
+    usersTab = JSON.parse(localStorage.getItem("users"));
+    
+  }else{
+    usersTab = []
   }
-  // if (localStorage.getItem("email")) {
-  //   emailTab = JSON.parse(localStorage.getItem("email"));
-  // }
-  // if (localStorage.getItem("mdp")) {
-  //   mdpTab = JSON.parse(localStorage.getItem("mdp"));
-  // }
 }
 function update() {
   
   document
     .getElementById("confirmation")
     .addEventListener("click", function () {
-      checkStorage()
-      nameTab.push(document.getElementById("nomUtilisateur").value);
-      localStorage.setItem("nom", JSON.stringify(nameTab));
-
-    //   emailTab.push(document.getElementById("email").value);
-    //   localStorage.setItem("email", JSON.stringify(emailTab));
       
-    //   mdpTab.push(document.getElementById("mdp").value);
-    //   localStorage.setItem("mdp", JSON.stringify(mdpTab));
+      
+      usersTab.push({
+        name: document.getElementById("nomUtilisateur").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("mdp").value,
+      });
+
+      localStorage.setItem("users", JSON.stringify(usersTab));
     });
 }
 
 function valid() {
+  
   if (nameIsOk && emailIsOk && pwdIsOk && confirmPwdIsOk) {
-    update()
+    checkIfUserexist()
     document
-
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success");
   } else {
+    
     document
       .getElementById("confirmation")
       .setAttribute("class", "btn btn-outline-success disabled");
@@ -69,6 +72,7 @@ function validName() {
   document
     .querySelector("#nomUtilisateur")
     .addEventListener("input", function () {
+      
       if (/[A-Za-z]/.test(this.value) && this.value.length >= 3) {
         this.setAttribute("class", "form-control is-valid");
         nameIsOk = true;
