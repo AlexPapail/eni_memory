@@ -43,31 +43,29 @@
 
     <div class="blockContenu container alert alert-warning col-lg-4">
       <fieldset id="formulaireInscription"></fieldset>
-      <form action="#" method="post">
+      <form id="form" action="#" method="post">
         <br />
         <h2 id="titreformulaire">Inscription</h2>
         <br />
         <br />
-            
-          <label for="nomUtilisateur" class="form-label"
-            >Nom d'utilisateur :</label
-          >
-          <input
-            class="form-control"
-            type="text"
-            id="nomUtilisateur"
-            name="nom"
-            
-            autofocus
-            required
-            placeholder="3 caractères minimum."
-            pattern="[A-Za-z]{3,}"
-            title="Saisissez votre nom (3 caractères minimum.)"
-          />
+        <div id="nameInput"><label for="nomUtilisateur" class="form-label">Nom d'utilisateur :</label>
+            <input
+              class="form-control"
+              type="text"
+              id="nomUtilisateur"
+              name="nom"
+              
+              autofocus
+              required
+              placeholder="3 caractères minimum."
+              pattern="[A-Za-z]{3,}"
+              title="Saisissez votre nom (3 caractères minimum.)"/>
+              <div id="wrongName"></div>
+        </div>
+          
 
           <br />                    
-      
-        <label for="email" class="form-label">Email :</label>
+      <div id="mailInput"><label for="email" class="form-label">Email :</label>
         <input
           class="form-control"
           type="email"
@@ -77,6 +75,9 @@
           placeholder="john.doeuf@mail.com"
           title="Saisissez votre adresse email"
         />
+        <div id="wrongMail"></div>
+      </div>
+        
         <br />
         <label for="mdp" class="form-label">Mot de passe:</label>
         <input
@@ -110,7 +111,7 @@
         />
         <br />
         <div id="boutondeconfirmation">
-          <a href="connexion.html" id="confirmation" class="btn btn-outline-success disabled" role="button" type="submit">Confimer</a>
+          <a  id="confirmation" class="btn btn-outline-success disabled" role="button" type="submit">Confimer</a>
           <input id="annulation" class="btn btn-outline-danger" value="Annuler" type="reset" >
         </div>
       </form>

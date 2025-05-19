@@ -46,13 +46,13 @@
             <br />
             <h2 id="titreformulaire">Profil</h2>
             
-            <img src="images/pot-with-rice.webp" alt="bol de riz" title="image d'un bol de riz" id="photoProfil" class="img-fluid col-lg-1" >
+            <img style="visibility: visible;" src="images/pot-with-rice.webp" alt="bol de riz" title="image d'un bol de riz" id="photoProfil" class="img-fluid col-lg-1" >
             <br />
             
           <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Pseudo :</label>
             <div class="col-sm-5">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="Alex">
+              <input type="text" readonly class="form-control-plaintext" id="staticName" value="Alex">
               
             </div>
             <hr>
@@ -69,14 +69,33 @@
           <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Jeu :</label>
             <div class="col-sm-5">
+              <select id="gameSelect" class="form-select form-select-sm" aria-label="Small select example">
+                <option id="any" value="any" selected>-</option>
+                <option id="animaux" value="animaux">Les aninaux</option>
+                <option id="legumes" value="legumes">Les légumes</option>
+                <option id="dino" value="dino">Les dionosaures</option>
+              </select>              
+            </div>
+          </div>
+          <div id="gamePicture"></div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Taille</label>
+            <div class="col-sm-5">
               <select class="form-select form-select-sm" aria-label="Small select example">
                 <option selected>-</option>
-                <option value="1">Memory 1</option>
-                <option value="2">Memory 2</option>
-                <option value="3">Memory 3</option>
+                <option value="0">4 x 4</option>
+                <option value="1">4 x 6</option>
+                <option value="2">5 x 4</option>
+                <option value="3">6 x 4</option>
+                <option value="3">8 x 4</option>
               </select>
               
             </div>
+          </div>
+          <br>
+          <div id="boutondeconfirmation">
+            <a href="compte.html" id="confirmation" class="btn btn-outline-success disabled" role="button" type="submit">Lancer une partie</a>
+            
           </div>
     </div>
 
@@ -85,6 +104,6 @@
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+    <script defer src="scriptCompte.js"></script>
   </body>
 </html>

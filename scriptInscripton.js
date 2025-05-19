@@ -1,38 +1,45 @@
-let nameIsOk = false;
-let emailIsOk = false;
-let pwdIsOk = false;
-let confirmPwdIsOk = false;
+let nameIsOk;
+let emailIsOk;
+let pwdIsOk;
+let confirmPwdIsOk;
 let usersTab;
-checkStorage();
-
+let nameExist = false;
+let emailExist = false;
 
 validPassword();
 validName();
 validEmail();
 cancel();
+
 update();
 
-function checkIfUserexist() {
-  let nameExist = false;
-  let emailExist = false;
-  usersTab.forEach((element) => {
-    if (element.name === document.getElementById("nomUtilisateur").value) {
-      nameExist = true;      
+
+
+
+function checkINameExist() {
+  checkStorage();
+  for (let index = 0; index < usersTab.length; index++) {
+    if (usersTab[index].name === document.getElementById("nomUtilisateur").value) {
+      nameExist = true;
+      break
     } else {
-      nameExist = false      
+      nameExist = false;
     }
-    if (nameExist){
-      alert('Ce nom d\'utilisateur existe déjà')
-    }
-    if (element.email === document.getElementById("email").value) {
-      emailExist = true;      
+  }
+  return nameExist;
+}
+function chechEmailExist() {
+  checkStorage();
+
+  for (let index = 0; index < usersTab.length; index++) {
+    if (usersTab[index].email === document.getElementById("email").value) {
+      emailExist = true;
+      break;
     } else {
-      emailExist = false      
+      emailExist = false;
     }
-    if (emailExist){
-      alert('Cet email existe déjà')
-    }
-  });
+  }
+  return emailExist;
 }
 function checkStorage() {
   if (localStorage.getItem("users")) {
@@ -45,12 +52,19 @@ function update() {
   document
     .getElementById("confirmation")
     .addEventListener("click", function () {
-      usersTab.push({
-        name: document.getElementById("nomUtilisateur").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("mdp").value,
-      });
-      localStorage.setItem("users", JSON.stringify(usersTab));
+      if (emailExist) {
+        alert("email éxistant");
+      } else {
+        document.getElementById("confirmation").href = "connexion.html";
+
+        localStorage.setItem("users", JSON.stringify(usersTab));
+        usersTab.push({
+          name: document.getElementById("nomUtilisateur").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("mdp").value,
+        });
+        localStorage.setItem("users", JSON.stringify(usersTab));
+      }
     });
 }
 function valid() {
@@ -68,39 +82,64 @@ function validName() {
   document
     .querySelector("#nomUtilisateur")
     .addEventListener("input", function () {
-      if (/[A-Za-z]/.test(this.value) && this.value.length >= 3) {
+      let wrongName =document.getElementById('wrongName')
+      checkINameExist();
+      if (
+        /[A-Za-z]/.test(this.value) &&
+        this.value.length >= 3 &&
+        !checkINameExist()
+      ) {
         this.setAttribute("class", "form-control is-valid");
+        wrongName.innerText = "";
         nameIsOk = true;
       } else if (!this.value) {
         this.setAttribute("class", "form-control");
+        wrongName.innerText = ""; 
         nameIsOk = false;
-      } else {
+      } else if(checkINameExist && /[A-Za-z]/.test(this.value) &&
+        this.value.length >= 3){
         this.setAttribute("class", "form-control is-invalid");
+        wrongName.innerText = "Cet nom existe déjà";        
         nameIsOk = false;
-      }
-      checkIfUserexist();
-      valid();
+      }else if (!(/[A-Za-z]/.test(this.value)) ||
+        this.value.length < 3){
+          this.setAttribute("class", "form-control is-invalid");
+        wrongName.innerText = "Minimum 3 caractères avec une minuscule et une majuscule";        
+        nameIsOk = false;
+        }
+        valid();
     });
+
+  return nameIsOk;
+  
 }
 function validEmail() {
   document.querySelector("#email").addEventListener("input", function () {
     let val = this.value;
-
+    let wrongMail = document.getElementById('wrongMail')
+    chechEmailExist();
     let arrobase = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val);
 
-    if (arrobase) {
+    if (arrobase && !chechEmailExist()) {
       this.setAttribute("class", "form-control is-valid");
+      wrongMail.innerText = "";
       emailIsOk = true;
     } else if (!val) {
       this.setAttribute("class", "form-control");
+      wrongMail.innerText = "";
       emailIsOk = false;
-    } else {
+    } else if (chechEmailExist && arrobase) {
+      this.setAttribute("class", "form-control is-invalid");     
+      wrongMail.innerText = "Cet email existe déjà";      
+      emailIsOk = false;
+    }else if(!arrobase){
+      wrongMail.innerText = "format: john.doeuf@mail.com";
       this.setAttribute("class", "form-control is-invalid");
       emailIsOk = false;
     }
-    checkIfUserexist();
     valid();
   });
+  return emailIsOk;
 }
 function createStrong() {
   let fort;
@@ -168,9 +207,9 @@ function validPassword() {
         .setAttribute("class", "form-control is-invalid");
       pwdIsOk = false;
     }
-    checkIfUserexist();
     valid();
   });
+  return pwdIsOk
 }
 function checkMaj(pwd) {
   let checkUpperCase = /[A-Z]/.test(pwd);
@@ -240,9 +279,9 @@ function confirmPwd(pwd) {
         this.setAttribute("class", "form-control is-invalid");
         confirmPwdIsOk = false;
       }
-      checkIfUserexist();
       valid();
     });
+    return confirmPwdIsOk
 }
 function cancel() {
   document.getElementById("annulation").addEventListener("click", function () {

@@ -107,4 +107,26 @@ hr{
 .faceCache{
   border-style: solid;
   border-radius: 2%;
+ position: absolute;
+ left: 0;
+ top: 0;
+}
+#wrongMail {
+  font-weight: bold;
+  margin-top: 3%;
+  color: red;
+}
+#wrongName {
+  font-weight: bold;
+  margin-top: 3%;
+  color: red;
+}
+#conditions{
+  margin-top: 3%;
+}
+.choc{
+  padding-top: 18px;
+  padding-bottom: 14px;
+  padding-left: 18px;
+  padding-right: 14px;
 }
